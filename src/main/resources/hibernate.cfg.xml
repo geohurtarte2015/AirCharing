@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+    <property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+    <property name="hibernate.connection.url">jdbc:oracle:thin:@//oracledes01-scan:3872/DVcrds</property>
+    <property name="hibernate.connection.username">SYSMONITOR_DVALUE</property>
+    <property name="hibernate.connection.password">B7F0BF9B78B3D715</property>   
+    <property name="hibernate.default_schema">SYSMONITOR_DVALUE</property>
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.managed">thread</property>
+    <property name="hibernate.enable_lazy_load_no_trans">true</property> 
+    <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+    <property name="hibernate.cache.use_second_level_cache">true</property>
+    <property name="hibernate.cache.use_query_cache">t90909090909090rue</property>
+    <property name="net.sf.ehcache.configurationResourceName">/myehcache.xml</property>
+   
+    <mapping class="com.pojo.TbOrigin"/>
+  </session-factory>
+</hibernate-configuration>
