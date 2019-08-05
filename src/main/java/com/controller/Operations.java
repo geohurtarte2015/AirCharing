@@ -43,8 +43,8 @@ public ResponseGetAccountDetails getAccountDetailServiceClassCurrent(String msis
 ResponseGetAccountDetails response = new ResponseGetAccountDetails();
 
 
-//String xmlResponse = connection.doPost("http://10.243.211.166:10011/Air","fdsuser:fdsuser",this.xmlRequestGetBalance(msisdn, date, sequence, originHostName));
-String xmlResponse = poolHttp.doPost("http://172.17.240.234:10011/Air","fdsuser:fdsuser",this.xmlRequestGetAccountDetail(msisdn, date, sequence(msisdn), nameOrigen));
+
+String xmlResponse = poolHttp.doPost("http://10.243.211.166:10011/Air","fdsuser:fdsuser",this.xmlRequestGetAccountDetail(msisdn, date, sequence(msisdn), nameOrigen));
 
 
 ResponseCharing responseGetBalance = parse.getParseXmlToObject(xmlResponse);
@@ -92,8 +92,8 @@ public ResponseGetAccountDetails getOfferDetails(String msisdn,String nameOrigen
 
 ResponseGetAccountDetails response = new ResponseGetAccountDetails();
 
-//String xmlResponse = connection.doPost("http://10.243.211.166:10011/Air","fdsuser:fdsuser",this.xmlRequestGetBalance(msisdn, date, sequence, originHostName));
-String xmlResponse = poolHttp.doPost("http://172.17.240.234:10011/Air","fdsuser:fdsuser",this.xmlRequestGetAccountDetail(msisdn, date, sequence(msisdn), nameOrigen));
+
+String xmlResponse = poolHttp.doPost("http://10.243.211.166:10011/Air","fdsuser:fdsuser",this.xmlRequestGetAccountDetail(msisdn, date, sequence(msisdn), nameOrigen));
 
 
 ResponseCharing responseGetBalance = parse.getParseXmlToObject(xmlResponse);
@@ -165,8 +165,8 @@ public ResponseGetAccountDetails getActivationDate(String msisdn,String nameOrig
 ResponseGetAccountDetails response = new ResponseGetAccountDetails();
 
 
-//String xmlResponse = connection.doPost("http://10.243.211.166:10011/Air","fdsuser:fdsuser",this.xmlRequestGetBalance(msisdn, date, sequence, originHostName));
-String xmlResponse = poolHttp.doPost("http://172.17.240.234:10011/Air","fdsuser:fdsuser",this.xmlRequestGetAccountDetail(msisdn, date, sequence(msisdn), nameOrigen));
+
+String xmlResponse = poolHttp.doPost("http://10.243.211.166:10011/Air","fdsuser:fdsuser",this.xmlRequestGetAccountDetail(msisdn, date, sequence(msisdn), nameOrigen));
 
 if(xmlResponse.contains("Error response")){
 response = new ResponseGetAccountDetails(); 
@@ -238,10 +238,10 @@ informationList.put(id[3],"");
 int[] valueSumId = {0,0,0,0,0};
 
 //PANAMA
-//String xmlResponse = poolHttp.doPost("http://10.243.211.166:10011/Air","fdsuser:fdsuser",this.xmlRequestGetBalance(msisdn, date, sequence(msisdn), originHostName));
+String xmlResponse = poolHttp.doPost("http://10.243.211.166:10011/Air","fdsuser:fdsuser",this.xmlRequestGetBalance(msisdn, date, sequence(msisdn), originHostName));
 
 //GUATEMALA
-String xmlResponse = poolHttp.doPost("http://172.17.240.234:10011/Air","fdsuser:fdsuser",this.xmlRequestGetBalance(msisdn, date, sequence(msisdn), originHostName));
+//String xmlResponse = poolHttp.doPost("http://172.17.240.234:10011/Air","fdsuser:fdsuser",this.xmlRequestGetBalance(msisdn, date, sequence(msisdn), originHostName));
 
 
 ResponseCharing responseGetBalance = parse.getParseXmlToObject(xmlResponse);
@@ -359,10 +359,10 @@ informationList.put(id[3],"");
 int[] valueSumId = {0,0,0,0,0};
 
 //Panama
-//String xmlResponse = connection.doPost("http://10.243.211.166:10011/Air","fdsuser:fdsuser",this.xmlRequestGetBalance(msisdn, date, sequence, originHostName));
+String xmlResponse = poolHttp.doPost("http://10.243.211.166:10011/Air","fdsuser:fdsuser",this.xmlRequestGetBalance(msisdn, date, sequence(msisdn), originName));
 
 //Guatemala
-String xmlResponse = poolHttp.doPost("http://172.17.240.234:10011/Air","fdsuser:fdsuser",this.xmlRequestGetBalance(msisdn, date, sequence(msisdn), originName));
+//String xmlResponse = poolHttp.doPost("http://172.17.240.234:10011/Air","fdsuser:fdsuser",this.xmlRequestGetBalance(msisdn, date, sequence(msisdn), originName));
 
 
 ResponseCharing responseGetBalance = parse.getParseXmlToObject(xmlResponse);
@@ -442,7 +442,7 @@ public ResponseBalance getRefill(String msisdn,String amount, String nameOrigin,
 
 ResponseBalance response = null;
 //String xmlNormal = connection.doPost("http://10.243.211.166:10011/Air","fdsuser:fdsuser",stringGetBalance);
-String xmlResponse = poolHttp.doPost("http://172.17.240.234:10011/Air","fdsuser:fdsuser",this.xmlRequestRefill(msisdn, date, sequence(msisdn), nameOrigin, amount, currency, ott));
+String xmlResponse = poolHttp.doPost("http://10.243.211.166:10011/Air","fdsuser:fdsuser",this.xmlRequestRefill(msisdn, date, sequence(msisdn), nameOrigin, amount, currency, ott));
 
 ResponseCharing responseGetBalance = parse.getParseXmlToObject(xmlResponse);
 
@@ -475,7 +475,7 @@ public boolean getValidateRefill(String msisdn,String origenId,String originName
 boolean validate = true;
 String date ="20180613T18:35:20+0500";
 
-String xmlResponse = poolHttp.doPost("http://172.17.240.234:10011/Air","fdsuser:fdsuser",this.xmlRequestGetBalance(msisdn, date, sequence(msisdn), originName));
+String xmlResponse = poolHttp.doPost("http://10.243.211.166:10011/Air","fdsuser:fdsuser",this.xmlRequestGetBalance(msisdn, date, sequence(msisdn), originName));
 ResponseCharing responseGetBalance = parse.getParseXmlToObject(xmlResponse);
 ObjectCharingResponse objectCharingInformationList = parse.getInformationMember(responseGetBalance, "offerInformationList");
 
@@ -503,7 +503,7 @@ return false;
 public Refill getUpdateRefill(String msisdn,String origenId,String amount, String originHostName,String ott) throws ParserConfigurationException, SAXException{
 
 //String xmlNormal = connection.doPost("http://10.243.211.166:10011/Air","fdsuser:fdsuser",stringGetBalance);
-String xmlResponse = poolHttp.doPost("http://172.17.240.234:10011/Air","fdsuser:fdsuser",this.xmlRequestRefill(msisdn, date, sequence(msisdn), originHostName, amount, currency, ott));
+String xmlResponse = poolHttp.doPost("http://10.243.211.166:10011/Air","fdsuser:fdsuser",this.xmlRequestRefill(msisdn, date, sequence(msisdn), originHostName, amount, currency, ott));
 
 ResponseCharing responseGetBalance = parse.getParseXmlToObject(xmlResponse);
 
@@ -524,8 +524,8 @@ return refill;
 
 public Refill getUpdateOffer(String msisdn,String origenId,String amount,String originHostName,String ott) throws ParserConfigurationException, SAXException{
 
-//String xmlNormal = connection.doPost("http://10.243.211.166:10011/Air","fdsuser:fdsuser",stringGetBalance);
-String xmlResponse = poolHttp.doPost("http://172.17.240.234:10011/Air","fdsuser:fdsuser",this.xmlRequestRefill(msisdn, date, sequence(msisdn), originHostName, amount, currency, ott));
+
+String xmlResponse = poolHttp.doPost("http://10.243.211.166:10011/Air","fdsuser:fdsuser",this.xmlRequestRefill(msisdn, date, sequence(msisdn), originHostName, amount, currency, ott));
 
 ResponseCharing responseGetBalance = parse.getParseXmlToObject(xmlResponse);
 
@@ -553,7 +553,7 @@ String offerID="0";
 
 HashMap informationList = new HashMap();
 ResponseUpdate updateAmount= new ResponseUpdate();
-String xmlResponse = poolHttp.doPost("http://172.17.240.234:10011/Air","fdsuser:fdsuser",this.xmlRequestGetBalance(msisdn, date, sequence(msisdn), originHostName));
+String xmlResponse = poolHttp.doPost("http://10.243.211.166:10011/Air","fdsuser:fdsuser",this.xmlRequestGetBalance(msisdn, date, sequence(msisdn), originHostName));
 
 ResponseCharing responseGetBalance = parse.getParseXmlToObject(xmlResponse);
 
@@ -566,7 +566,7 @@ valResponseCode = (String) valHashMapResponseCode.get(0);
 System.out.println("Response code offerInformationList"+valResponseCode);
 
 if (Integer.parseInt(valResponseCode)>9){
-valResponseCode="1";
+
  String nameError = (String) responseCodeCharing.getReponse().get(Integer.parseInt(valResponseCode));    
  updateAmount.setResponseCode(valResponseCode);
  updateAmount.setDescription(nameError);
@@ -645,7 +645,6 @@ HashMap valHashMapResponseCode =   (HashMap) responseCode.getMemberValue().get(0
 valResponseCode = (String) valHashMapResponseCode.get(0);
 
 if (Integer.parseInt(valResponseCode)>9){
-valResponseCode="1";
  String nameError = (String) responseCodeCharing.getReponse().get(Integer.parseInt(valResponseCode));    
  cyclePayment.setResponseCode(valResponseCode);
  cyclePayment.setDescription(nameError);
@@ -705,7 +704,7 @@ String accountValue="1";
 
 HashMap informationList = new HashMap();
 ResponseUpdate cyclePayment= new ResponseUpdate();
-String xmlResponse = poolHttp.doPost("http://172.17.240.234:10011/Air","fdsuser:fdsuser",this.xmlRequestGetBalance(msisdn, date, sequence(msisdn), originHostName));
+String xmlResponse = poolHttp.doPost("http://10.243.211.166:10011/Air","fdsuser:fdsuser",this.xmlRequestGetBalance(msisdn, date, sequence(msisdn), originHostName));
 
 ResponseCharing responseGetBalance = parse.getParseXmlToObject(xmlResponse);
 
@@ -716,7 +715,6 @@ HashMap valHashMapResponseCode =   (HashMap) responseCode.getMemberValue().get(0
 valResponseCode = (String) valHashMapResponseCode.get(0);
 
 if (Integer.parseInt(valResponseCode)>9){
-valResponseCode="1";
  String nameError = (String) responseCodeCharing.getReponse().get(Integer.parseInt(valResponseCode));    
  cyclePayment.setResponseCode(valResponseCode);
  cyclePayment.setDescription(nameError);
@@ -784,7 +782,7 @@ String responseUpdate="1";
 String valResponseCode="0";
 
 ResponseUpdate responseUpdateLimit= new ResponseUpdate();
-String xmlUpdateResponse = poolHttp.doPost("http://172.17.240.234:10011/Air","fdsuser:fdsuser",this.xmlRequestUpdateRefill(msisdn, date, this.sequence(msisdn), originId, amount, currency));
+String xmlUpdateResponse = poolHttp.doPost("http://10.243.211.166:10011/Air","fdsuser:fdsuser",this.xmlRequestUpdateRefill(msisdn, date, this.sequence(msisdn), originId, amount, currency));
 ResponseCharing responseGetBalanceUpdate = parse.getParseXmlToObject(xmlUpdateResponse);
 ObjectCharingResponse responseCodeUpdate = parse.getInformationMember(responseGetBalanceUpdate, "responseCode");
 HashMap valHashMapResponseCodeUpdate =   (HashMap) responseCodeUpdate.getMemberValue().get(0);
@@ -798,6 +796,7 @@ responseUpdateLimit.setDescription(nameError);
 
 return responseUpdateLimit;
 }
+
 
 public ResponseCurrentBalance getCurrentBalance(String originId,String msisdn,String trxId,String originHostName,String ott,long operatorId) throws ParserConfigurationException, SAXException{
 String valResponseCode="1";
