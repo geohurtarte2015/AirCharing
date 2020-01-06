@@ -7,13 +7,8 @@ package com.webservice.ws_cs_balance_managementmethods;
 
 import com.controller.Operations;
 import com.controller.ResponseCodeCharing;
-import com.dao.DaoOrigin;
-import com.pojo.Refill;
 import com.pojo.ResponseBalance;
-import com.pojo.ResponseUpdate;
-import com.pojo.TbOrigin;
 import com.webservice.charing.WsAirInterface;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jws.WebService;
@@ -31,7 +26,7 @@ public class WS_CS_BALANCE_MANAGEMENT {
     
     private static Operations operations=null;
     private static String responseText="";
-    private  DaoOrigin daoOrigin=null;
+
     private ResponseCodeCharing responseCodeCharing = null;
     
     public WS_CS_BALANCE_MANAGEMENT(){
@@ -52,7 +47,9 @@ public class WS_CS_BALANCE_MANAGEMENT {
         try {
             //TbOrigin resOrigin = daoOrigin.getByIdObject(Integer.parseInt(origenId));
             //responseRefill = operations.getRefill(msisdn, origenId, amount,resOrigin.getDescription(),resOrigin.getOtt());
-            responseRefill = operations.getRefill(msisdn,amount,origenId,ott);
+           
+     
+            responseRefill = operations.getRefill(trxId,msisdn,origenId, amount, ott);
            
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(WsAirInterface.class.getName()).log(Level.SEVERE, null, ex);

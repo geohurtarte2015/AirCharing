@@ -2,7 +2,6 @@
 package com.webservice.ws_cs_pospaid_operations;
 
 import com.controller.Operations;
-import com.dao.DaoOrigin;
 import com.pojo.ResponseCurrentBalance;
 import com.pojo.ResponseUpdate;
 import com.pojo.TbOrigin;
@@ -22,15 +21,25 @@ public class WsCsPosPaidOperations {
     
     private static Operations operations=null;
     private static String responseText="";
-    private  DaoOrigin daoOrigin=null;
+
+    private TbOrigin resOrigin = null;
 
     public WsCsPosPaidOperations(){
             if (operations == null) {
            operations = new Operations();     
-       }     
-           daoOrigin= new DaoOrigin();
-           List<TbOrigin> origins = daoOrigin.listAll();
-           daoOrigin= new DaoOrigin();   
+            }
+            resOrigin = new TbOrigin();            
+            this.resOrigin.setIdOrigin(1);
+            this.resOrigin.setDescription("PRETUPS");
+            this.resOrigin.setOtt("-937");
+            this.resOrigin.setMethodList(1);
+            this.resOrigin.setState(1);
+            this.resOrigin.setOperatorId(1);
+            
+            
+           //daoOrigin= new DaoOrigin();
+           //List<TbOrigin> origins = daoOrigin.listAll();
+           //daoOrigin= new DaoOrigin();   
     
     }
     
@@ -38,10 +47,7 @@ public class WsCsPosPaidOperations {
     public ResponseUpdate creditLimitUpdateAmount(@WebParam(name = "originId") String originId,@WebParam(name = "msisdn") String msisdn,@WebParam(name = "trxId") String trxId,@WebParam(name = "amount") String amount) throws ParserConfigurationException, SAXException {
     System.out.println("Id"+" "+originId+" "+"msisdn" +msisdn+" "+"amount"+" "+amount);
         ResponseUpdate cyclePayment = new ResponseUpdate();
-            try {
-
-                TbOrigin resOrigin = null;
-                resOrigin = daoOrigin.getByIdObject(Integer.parseInt(originId));
+            try {                            
                 if(resOrigin!=null) {
                     cyclePayment = operations.getUpdateAmount(originId, msisdn, trxId, amount, resOrigin.getDescription(), resOrigin.getOtt(),resOrigin.getOperatorId());
                 } else {
@@ -64,8 +70,8 @@ public class WsCsPosPaidOperations {
         ResponseUpdate cyclePayment = new ResponseUpdate();
         try {
             
-            TbOrigin resOrigin = null;
-            resOrigin = daoOrigin.getByIdObject(Integer.parseInt(originId));
+            
+   
             if(resOrigin!=null) {
                 cyclePayment = operations.getCyclePaymentDud(originId,msisdn,trxId,amount,resOrigin.getDescription(),resOrigin.getOtt(),resOrigin.getOperatorId());
             } else {
@@ -87,8 +93,8 @@ public class WsCsPosPaidOperations {
     System.out.println("Id"+" "+originId+" "+"msisdn" +msisdn);
         
     ResponseCurrentBalance response = new ResponseCurrentBalance();
-    TbOrigin resOrigin = null;
-    resOrigin = daoOrigin.getByIdObject(Integer.parseInt(originId));
+
+
     if(resOrigin!=null) {
         try {
             response = operations.getCurrentBalance(originId,msisdn,trxId,resOrigin.getDescription(),resOrigin.getOtt(),resOrigin.getOperatorId());
@@ -110,9 +116,7 @@ public class WsCsPosPaidOperations {
     public ResponseUpdate creditLimitCyclePayment(@WebParam(name = "originId") String originId,@WebParam(name = "msisdn") String msisdn,@WebParam(name = "trxId") String trxId,@WebParam(name = "amount") String amount)  {
         ResponseUpdate cyclePayment = new ResponseUpdate();
         try {
-            
-            TbOrigin resOrigin = null;
-            resOrigin = daoOrigin.getByIdObject(Integer.parseInt(originId));
+  
             if(resOrigin!=null) {
                 cyclePayment = operations.getCyclePayment(originId,msisdn,trxId,amount,resOrigin.getDescription(),resOrigin.getOtt(),resOrigin.getOperatorId());
             } else {

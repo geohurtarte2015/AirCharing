@@ -18,6 +18,7 @@ import com.pojo.ResponseValue;
 import com.xmlrpc.pojo.ObjectCharingResponse;
 import com.xmlrpc.controller.ParseXmlResponseCharing;
 import com.xmlrpc.pojo.ResponseCharing;
+import java.math.BigDecimal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,14 +28,16 @@ public class Operations extends XmlRequest {
     
 private static final PoolHttp poolHttp = new PoolHttp();
 private static final ParseXmlResponseCharing parse = new ParseXmlResponseCharing();
-private static final String date ="20180613T18:35:20+0500";
-private static final String currency="GTQ";
+private final  String date;
+private static final String currency="PAB";
 private ResponseCodeCharing responseCodeCharing = new ResponseCodeCharing();
 private  HashMap  responseErrorCode = new HashMap();
 
 
 public Operations(){    
- 
+    DateTimeConverter time = new DateTimeConverter();
+    //this.date = time.getDateTimeIso8601();
+    this.date ="20190613T18:35:20+0500";
 }
 
 public ResponseGetAccountDetails getAccountDetailServiceClassCurrent(String msisdn,String nameOrigen) throws SAXException, ParserConfigurationException{
@@ -438,11 +441,16 @@ return getBalance;
     
     }
 
-public ResponseBalance getRefill(String msisdn,String amount, String nameOrigin,String ott) throws ParserConfigurationException, SAXException{
-
+public ResponseBalance getRefill(String idTransaction, String msisdn, String nameOrigin,String amount,String ott) throws ParserConfigurationException, SAXException{
+String sequence = idTransaction;
 ResponseBalance response = null;
+
+if(idTransaction.equals("?")){    
+    sequence = sequence(msisdn);    
+}
+
 //String xmlNormal = connection.doPost("http://10.243.211.166:10011/Air","fdsuser:fdsuser",stringGetBalance);
-String xmlResponse = poolHttp.doPost("http://10.243.211.166:10011/Air","fdsuser:fdsuser",this.xmlRequestRefill(msisdn, date, sequence(msisdn), nameOrigin, amount, currency, ott));
+String xmlResponse = poolHttp.doPost("http://10.243.211.166:10011/Air","fdsuser:fdsuser",this.xmlRequestRefill(msisdn, date, sequence, nameOrigin, amount, currency, ott));
 
 ResponseCharing responseGetBalance = parse.getParseXmlToObject(xmlResponse);
 
@@ -776,6 +784,35 @@ cyclePayment.setDescription(nameError);
  return cyclePayment;
 }
 
+//debit_operation
+public ResponseUpdate getDebitOperation(String originId,String msisdn,String trxId,String amount,String originHostName,String ott,long operatorId) throws ParserConfigurationException, SAXException{
+String valResponseCode="1";
+String valResponseCodeUpdate="1";
+
+ResponseUpdate cyclePayment= new ResponseUpdate();
+
+
+
+String xmlUpdateResponse = poolHttp.doPost("http://10.243.211.166:10011/Air","fdsuser:fdsuser",this.xmlRequestUpdateRefill(msisdn, date, this.sequence(msisdn), originHostName, amount, currency));
+ResponseCharing responseGetBalanceUpdate = parse.getParseXmlToObject(xmlUpdateResponse);
+ObjectCharingResponse responseCodeUpdate = parse.getInformationMember(responseGetBalanceUpdate, "responseCode");
+HashMap valHashMapResponseCodeUpdate =   (HashMap) responseCodeUpdate.getMemberValue().get(0);
+valResponseCodeUpdate = (String) valHashMapResponseCodeUpdate.get(0);
+if (Integer.parseInt(valResponseCodeUpdate)>9){
+ String nameError = (String) responseCodeCharing.getReponse().get(Integer.parseInt(valResponseCode));    
+ cyclePayment.setResponseCode(valResponseCode);
+ cyclePayment.setDescription(nameError);
+ return cyclePayment;
+}
+
+
+String nameError = (String) responseCodeCharing.getReponse().get(Integer.parseInt(valResponseCode));
+cyclePayment.setResponseCode(valResponseCode);
+cyclePayment.setDescription(nameError);
+ return cyclePayment;
+}
+
+
 //Get balance and set limit credit
 public ResponseUpdate getUpdateAmountLimit(String originId,String msisdn,String trxId,String amount, String ott) throws ParserConfigurationException, SAXException{
 String responseUpdate="1";
@@ -845,7 +882,7 @@ for (int index=0;index<sizeObjectCharingAccountInformation;index++){
 
 //"http://10.243.211.166:10011/Air","fdsuser:fdsuser"
 
-String xmlThresholdsCounter = poolHttp.doPost("http://10.243.211.166:10011/Air","fdsuser:fdsuser",this.xmlUsageThresholdsAndCounters(msisdn, date, this.sequence(msisdn), originHostName, currency, operatorId));
+String xmlThresholdsCounter = poolHttp.doPost("http://10.243.211.166:10011/Air","fdsuser:fdsuser",this.xmlGetUsageThresholdsAndCounters(msisdn, date, this.sequence(msisdn), originHostName));
 ResponseCharing responseThresholdsCounter = parse.getParseXmlToObject(xmlThresholdsCounter);
 ObjectCharingResponse responseCodeCounter = parse.getInformationMember(responseThresholdsCounter, "responseCode");
 ObjectCharingResponse usageCounterMonetaryValue1 = parse.getInformationMember(responseThresholdsCounter, "usageCounterUsageThresholdInformation");
@@ -865,16 +902,23 @@ int sizeObjectUsageCounterMonetaryValue = usageCounterMonetaryValue1.getMemberVa
 
 for (int index=0;index<sizeObjectUsageCounterMonetaryValue;index++){        
     HashMap valHash =    (HashMap) usageCounterMonetaryValue1.getMemberValue().get(index);  
-    HashMap valCounter = (HashMap) valHash.get(0);  
-    int valId = Integer.parseInt((String) valCounter.get("usageCounterID"));
+   // HashMap valCounter = (HashMap) valHash.get(0);  
+    int valId = Integer.parseInt((String) valHash.get("usageCounterID"));
     switch(valId){
         case 50120:            
-             monetaryValue = (String) valCounter.get("usageCounterMonetaryValue1");             
+             monetaryValue = (String) valHash.get("usageCounterMonetaryValue1");             
              break;   
     }    
 }
     
-    cyclePayment.setCurrentBalance(accountValue);
+    //cyclePayment.setCurrentBalance(accountValue);
+    BigDecimal totalBalance = new BigDecimal(0);
+    BigDecimal numAccountValue = new BigDecimal(accountValue);
+    BigDecimal numMonetaryValue = new BigDecimal(monetaryValue);
+    totalBalance = (numAccountValue).add(numMonetaryValue);
+    
+    
+    cyclePayment.setCurrentBalance(totalBalance.toString());
     cyclePayment.setUsageBalance(monetaryValue);
     String nameError = (String) responseCodeCharing.getReponse().get(Integer.parseInt(valResponseCode));
     cyclePayment.setResponseCode(valResponseCode);

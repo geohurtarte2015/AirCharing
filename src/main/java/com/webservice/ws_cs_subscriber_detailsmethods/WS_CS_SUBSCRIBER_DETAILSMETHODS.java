@@ -6,9 +6,8 @@
 package com.webservice.ws_cs_subscriber_detailsmethods;
 
 import com.controller.Operations;
-import com.dao.DaoOrigin;
+
 import com.pojo.ResponseGetAccountDetails;
-import com.pojo.TbOrigin;
 import java.util.List;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
@@ -22,15 +21,13 @@ public class WS_CS_SUBSCRIBER_DETAILSMETHODS {
     
     private static Operations operations=null;
     private static String responseText="";
-    private  DaoOrigin daoOrigin=null;
+
     
      public WS_CS_SUBSCRIBER_DETAILSMETHODS(){
             if (operations == null) {
            operations = new Operations();     
        }     
-           daoOrigin= new DaoOrigin();
-           List<TbOrigin> origins = daoOrigin.listAll();
-           daoOrigin= new DaoOrigin();   
+          
     
     }
 

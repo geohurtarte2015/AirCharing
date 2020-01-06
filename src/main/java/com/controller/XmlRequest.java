@@ -221,86 +221,86 @@ public class XmlRequest {
         }
     
         String xmlRequestUpdateRefill(String msisdn, String date, String sequence, String originHostName, String amount, String currency){
-    String stringRefill = "<methodCall>\n" +
-    "   <methodName>UpdateBalanceAndDate</methodName>\n" +
-    "   <params>\n" +
-    "      <param>\n" +
-    "         <value>\n" +
-    "            <struct>\n" +
-    "               <member>\n" +
-    "                  <name>originNodeType</name>\n" +
-    "                  <value>\n" +
-    "                     <string>AIR</string>\n" +
-    "                  </value>\n" +
-    "               </member>\n" +
-    "               <member>\n" +
-    "                  <name>originHostName</name>\n" +
-    "                  <value>\n" +
-    "                     <string>"+originHostName+"</string>\n" +
-    "                  </value>\n" +
-    "               </member>\n" +
-    "               <member>\n" +
-    "                  <name>originTransactionID</name>\n" +
-    "                  <value>\n" +
-    "                     <string>"+sequence+"</string>\n" +
-    "                  </value>\n" +
-    "               </member>\n" +
-    "               <member>\n" +
-    "                  <name>originTimeStamp</name>\n" +
-    "                  <value>\n" +
-    "                     <dateTime.iso8601>"+date+"</dateTime.iso8601>\n" +
-    "                  </value>\n" +
-    "               </member>\n" +
-    "               <member>\n" +
-    "                  <name>subscriberNumber</name>\n" +
-    "                  <value>\n" +
-    "                     <string>"+msisdn+"</string>\n" +
-    "                  </value>\n" +
-    "               </member>\n" +
-    "               <member>\n" +
-    "                  <name>transactionCurrency</name>\n" +
-    "                  <value>\n" +
-    "                     <string>"+currency+"</string>\n" +
-    "                  </value>\n" +
-    "               </member>\n" +
-    "               <member>\n" +
-    "                  <name>dedicatedAccountUpdateInformation</name>\n" +
-    "                  <value>\n" +
-    "                     <array>\n" +
-    "                        <data>\n" +
-    "                           <value>\n" +
-    "                              <struct>\n" +
-    "                                 <member>\n" +
-    "                                    <name>dedicatedAccountID</name>\n" +
-    "                                    <value>\n" +
-    "                                       <int>50120</int>\n" +
-    "                                    </value>\n" +
-    "                                 </member>\n" +
-    "                                 <member>\n" +
-    "                                    <name>dedicatedAccountValueNew</name>\n" +
-    "                                    <value>\n" +
-    "                                       <string>"+amount+"</string>\n" +
-    "                                    </value>\n" +
-    "                                 </member>\n" +
-    "                                 <member>\n" +
-    "                                    <name>dedicatedAccountUnitType</name>\n" +
-    "                                    <value>\n" +
-    "                                       <i4>1</i4>\n" +
-    "                                    </value>\n" +
-    "                                 </member>\n" +
-    "                              </struct>\n" +
-    "                           </value>\n" +
-    "                        </data>\n" +
-    "                     </array>\n" +
-    "                  </value>\n" +
-    "               </member>\n" +           
-    "            </struct>\n" +
-    "         </value>\n" +
-    "      </param>\n" +
-    "   </params>\n" +
-    "</methodCall>";
-    
-    return stringRefill;
+            String stringRefill = "<methodCall>\n" +
+            "   <methodName>UpdateBalanceAndDate</methodName>\n" +
+            "   <params>\n" +
+            "      <param>\n" +
+            "         <value>\n" +
+            "            <struct>\n" +
+            "               <member>\n" +
+            "                  <name>originNodeType</name>\n" +
+            "                  <value>\n" +
+            "                     <string>AIR</string>\n" +
+            "                  </value>\n" +
+            "               </member>\n" +
+            "               <member>\n" +
+            "                  <name>originHostName</name>\n" +
+            "                  <value>\n" +
+            "                     <string>"+originHostName+"</string>\n" +
+            "                  </value>\n" +
+            "               </member>\n" +
+            "               <member>\n" +
+            "                  <name>originTransactionID</name>\n" +
+            "                  <value>\n" +
+            "                     <string>"+sequence+"</string>\n" +
+            "                  </value>\n" +
+            "               </member>\n" +
+            "               <member>\n" +
+            "                  <name>originTimeStamp</name>\n" +
+            "                  <value>\n" +
+            "                     <dateTime.iso8601>"+date+"</dateTime.iso8601>\n" +
+            "                  </value>\n" +
+            "               </member>\n" +
+            "               <member>\n" +
+            "                  <name>subscriberNumber</name>\n" +
+            "                  <value>\n" +
+            "                     <string>"+msisdn+"</string>\n" +
+            "                  </value>\n" +
+            "               </member>\n" +
+            "               <member>\n" +
+            "                  <name>transactionCurrency</name>\n" +
+            "                  <value>\n" +
+            "                     <string>"+currency+"</string>\n" +
+            "                  </value>\n" +
+            "               </member>\n" +
+            "               <member>\n" +
+            "                  <name>dedicatedAccountUpdateInformation</name>\n" +
+            "                  <value>\n" +
+            "                     <array>\n" +
+            "                        <data>\n" +
+            "                           <value>\n" +
+            "                              <struct>\n" +
+            "                                 <member>\n" +
+            "                                    <name>dedicatedAccountID</name>\n" +
+            "                                    <value>\n" +
+            "                                       <int>50120</int>\n" +
+            "                                    </value>\n" +
+            "                                 </member>\n" +
+            "                                 <member>\n" +
+            "                                    <name>dedicatedAccountValueNew</name>\n" +
+            "                                    <value>\n" +
+            "                                       <string>"+amount+"</string>\n" +
+            "                                    </value>\n" +
+            "                                 </member>\n" +
+            "                                 <member>\n" +
+            "                                    <name>dedicatedAccountUnitType</name>\n" +
+            "                                    <value>\n" +
+            "                                       <i4>1</i4>\n" +
+            "                                    </value>\n" +
+            "                                 </member>\n" +
+            "                              </struct>\n" +
+            "                           </value>\n" +
+            "                        </data>\n" +
+            "                     </array>\n" +
+            "                  </value>\n" +
+            "               </member>\n" +           
+            "            </struct>\n" +
+            "         </value>\n" +
+            "      </param>\n" +
+            "   </params>\n" +
+            "</methodCall>";
+
+            return stringRefill;
     }
                 
         String xmlUsageThresholdsAndCounters(String msisdn, String date, String sequence, String originHostName, String currency,long operatorId){
@@ -630,4 +630,65 @@ public class XmlRequest {
         "</methodCall>";        
         return stringGetBalance;
     }
+        
+        String xmlGetUsageThresholdsAndCounters(String msisdn,String date, String sequence, String originHostName){
+        String stringGetBalance ="<methodCall>\n" +
+                                "<methodName>GetUsageThresholdsAndCounters</methodName>\n" +
+                                "<params>\n" +
+                                " <param>\n" +
+                                "  <value>\n" +
+                                "   <struct>\n" +
+                                "    <member>\n" +
+                                "     <name>originNodeType</name>\n" +
+                                "     <value>\n" +
+                                "      <string>AIR</string>\n" +
+                                "     </value>\n" +
+                                "    </member>\n" +
+                                "    <member>\n" +
+                                "     <name>originHostName</name>\n" +
+                                "     <value>\n" +
+                                "      <string>"+originHostName+"</string>\n" +
+                                "     </value>\n" +
+                                "    </member>\n" +
+                                "    <member>\n" +
+                                "     <name>originTransactionID</name>\n" +
+                                "     <value>\n" +
+                                "      <string>"+sequence+"</string>\n" +
+                                "     </value>\n" +
+                                "    </member>\n" +
+                                "    <member>\n" +
+                                "     <name>originTimeStamp</name>\n" +
+                                "     <value>\n" +
+                                "      <dateTime.iso8601>"+date+"</dateTime.iso8601>\n" +
+                                "     </value>\n" +
+                                "    </member>\n" +
+                                "    <member>\n" +
+                                "     <name>subscriberNumberNAI</name>\n" +
+                                "     <value>\n" +
+                                "      <int>1</int>\n" +
+                                "     </value>\n" +
+                                "    </member>\n" +
+                                "    <member>\n" +
+                                "     <name>subscriberNumber</name>\n" +
+                                "     <value>\n" +
+                                "      <string>"+msisdn+"</string>\n" +
+                                "     </value>\n" +
+                                "    </member>\n" +
+                                "   </struct>\n" +
+                                "  </value>\n" +
+                                " </param>\n" +
+                                "</params>\n" +
+                                "</methodCall>";
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        return stringGetBalance;
+        }
+        
     }

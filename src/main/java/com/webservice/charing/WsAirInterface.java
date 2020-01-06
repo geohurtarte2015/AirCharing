@@ -1,6 +1,5 @@
 
 package com.webservice.charing;
-import configurationHibernate.HibernateUtil;
 import com.controller.Operations;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,33 +9,22 @@ import javax.jws.WebParam;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 import com.pojo.GetBalance;
-import com.pojo.Refill;
-import com.dao.DaoOrigin;
 import com.pojo.ResponseBalance;
 import com.pojo.ResponseCurrentBalance;
-import com.pojo.TbOrigin;
-import configurationHibernate.HibernateUtil;
-import java.util.List;
-import org.hibernate.Session;
+
 
 
 
 @WebService(serviceName = "WsAirInterface")
 public class WsAirInterface {
-
-
     private static Operations operations=null;
     private static String responseText="";
-    private  DaoOrigin daoOrigin=null;
-//    private static List<TbOrigin> origins=null;
+
     
    public WsAirInterface() {
      if (operations == null) {
            operations = new Operations();     
-       }     
-           daoOrigin= new DaoOrigin();
-           List<TbOrigin> origins = daoOrigin.listAll();
-           daoOrigin= new DaoOrigin();   
+       }      
    }
 
     @WebMethod(operationName = "getDataBalance")
@@ -56,15 +44,18 @@ public class WsAirInterface {
     }
 
     @WebMethod(operationName = "getDataRefill")
-    public ResponseBalance getRefill(@WebParam(name = "msisdn") String msisdn, @WebParam(name = "amount") String amount, @WebParam(name = "origenId") String origenId) {
+    public ResponseBalance getRefill(@WebParam(name = "idTransaction") String idTransaction,@WebParam(name = "msisdn") String msisdn, @WebParam(name = "amount") String amount, @WebParam(name = "origenId") String origenId,@WebParam(name = "ott") String ott) {
        
        long startTime = System.currentTimeMillis();
        //System.out.println("Begin : "+startTime);
         ResponseBalance responseRefill = new ResponseBalance();
         
         try {
-            TbOrigin resOrigin = daoOrigin.getByIdObject(Integer.parseInt(origenId));
-            responseRefill = operations.getRefill(msisdn, origenId, amount,resOrigin.getOtt());
+            //TbOrigin resOrigin = daoOrigin.getByIdObject(Integer.parseInt(origenId));
+            
+            responseRefill = operations.getRefill(idTransaction,msisdn, origenId, amount, ott);
+            
+            //responseRefill = operations.getRefill(msisdn, origenId, amount,resOrigin.getOtt());
 
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(WsAirInterface.class.getName()).log(Level.SEVERE, null, ex);
@@ -81,9 +72,9 @@ public class WsAirInterface {
     public boolean geValidateBalance(@WebParam(name = "msisdn") String msisdn, @WebParam(name = "origenId") String origenId) {
         //operations = new Operations();
         boolean getValidate = true;
-         TbOrigin resOrigin = daoOrigin.getByIdObject(Integer.parseInt(origenId));
+         //TbOrigin resOrigin = daoOrigin.getByIdObject(Integer.parseInt(origenId));
         try {
-            getValidate = operations.getValidateRefill(msisdn, origenId,resOrigin.getDescription());
+            getValidate = operations.getValidateRefill(msisdn, origenId,"CLARO");
         } catch (SAXException ex) {
             Logger.getLogger(WsAirInterface.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParserConfigurationException ex) {
@@ -101,6 +92,13 @@ public class WsAirInterface {
           ResponseCurrentBalance responseGetBalance = new ResponseCurrentBalance();
           responseGetBalance = operations.getThresholdsAndCounters(origin,msisdn);
         return responseGetBalance;
+    }
+
+
+    @WebMethod(operationName = "getDataRemoveRefill")
+    public String getDataRemoveRefill(@WebParam(name = "origenId") String origenId, @WebParam(name = "msisdn") String msisdn, @WebParam(name = "trx") String trx, @WebParam(name = "amount") String amount, @WebParam(name = "ott") String ott) {
+        //TODO write your implementation code here:
+        return null;
     }
 
 
